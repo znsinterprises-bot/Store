@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Lamps — Trending Finds & Everyday Essentials</title>
+  <link rel="icon" type="image/png" href="https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Hide scrollbar for category pills */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Smooth pulse animation for hot badges */
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .pulse-badge {
+      animation: subtlePulse 2.2s infinite ease-in-out;
+    }
+
+    /* Custom toast notification transition */
+    .toast-enter {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast-exit {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-24 md:pb-8">
+
+  <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white text-xs sm:text-sm py-2.5 px-4 text-center font-medium tracking-wide border-b border-white/10">
+    <span class="inline-block animate-bounce mr-1">🔥</span>
+    <strong>MEGA LAUNCH SALE:</strong> Flat 50% OFF + Buy 2 LAVORA™ Brushes for Just <span class="text-amber-400 font-bold underline">₹549</span>! Fast Order Confirmation
+  </div>
+
+  <!-- ==================== STICKY HEADER ==================== -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      
+      <!-- Brand Logo & Name -->
+      <a href="#" onclick="resetFilter(); return false;" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden border border-slate-200 bg-slate-900 flex-shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+          <img 
+            src="https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png" 
+            alt="Orbit Lamps Logo" 
+            class="w-full h-full object-cover"
+            onerror="this.src='https://placehold.co/100x100/0f172a/f59e0b?text=OL'"
+          />
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">Orbit Lamps</h1>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700">Verified Store</span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium">Trending Finds & Everyday Essentials</p>
+        </div>
+      </a>
+
+      <!-- Search & Cart Controls -->
+      <div class="flex items-center gap-2.5">
+        <!-- Desktop Search -->
+        <div class="relative hidden md:block w-64">
+          <input 
+            id="desktopSearchInput"
+            type="text" 
+            placeholder="Search products..." 
+            oninput="handleSearch(this.value)"
+            class="w-full pl-9 pr-4 py-2 text-sm bg-slate-100 border border-transparent focus:bg-white focus:border-indigo-500 rounded-xl outline-none transition-all"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+          </svg>
+        </div>
+
+        <!-- Header Cart Button -->
+        <button 
+          onclick="openCartModal()"
+          aria-label="Open shopping cart"
+          class="relative flex items-center gap-2 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white px-3.5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm"
+        >
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="hidden sm:inline">Cart</span>
+          <span id="headerCartCount" class="bg-amber-400 text-slate-950 font-extrabold text-xs px-2 py-0.5 rounded-full min-w-[22px] text-center">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search & Category Filter Pills -->
+    <div class="max-w-6xl mx-auto px-4 pb-3 space-y-2.5">
+      <div class="relative md:hidden">
+        <input 
+          id="mobileSearchInput"
+          type="text" 
+          placeholder="Search trending products..." 
+          oninput="handleSearch(this.value)"
+          class="w-full pl-9 pr-4 py-2 text-sm bg-slate-100 border border-slate-200/80 focus:bg-white focus:border-indigo-500 rounded-xl outline-none transition-all"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 10.5a7.5 7.5 0 0013.15 6.15z" />
+        </svg>
+      </div>
+
+      <!-- Category Filter Buttons -->
+      <div id="categoryContainer" class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-0.5">
+        <!-- Dynamically populated via JS -->
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-6 flex-grow space-y-10">
+
+    <!-- ==================== FEATURED HERO PRODUCT SHOWCASE ==================== -->
+    <section id="featuredShowcase" class="bg-white rounded-3xl border border-slate-200/90 shadow-md overflow-hidden">
+      <div class="bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-indigo-500/10 px-4 sm:px-6 py-2.5 border-b border-slate-100 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1 bg-rose-600 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+            ★ #1 Bestseller
+          </span>
+          <span class="text-xs sm:text-sm font-semibold text-slate-700">Viral Self-Cleaning Hair Brush — Special Bundle Deal</span>
+        </div>
+        <span class="text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+          ✓ In Stock & Ready to Dispatch
+        </span>
+      </div>
+
+      <div class="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+        
+        <!-- LEFT COLUMN: 4-Photo Interactive Gallery -->
+        <div class="lg:col-span-6 space-y-3">
+          <div class="relative aspect-square w-full bg-slate-50 rounded-2xl border border-slate-200 overflow-hidden group">
+            <!-- Discount Badge -->
+            <div class="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
+              <span class="bg-rose-600 text-white text-xs font-extrabold px-3 py-1 rounded-full shadow-md">
+                FLAT 50% OFF
+              </span>
+              <span class="bg-slate-900/90 backdrop-blur-sm text-amber-300 text-[11px] font-bold px-2.5 py-1 rounded-full shadow">
+                Combo: 2 for ₹549
+              </span>
+            </div>
+
+            <!-- Main Image -->
+            <img 
+              id="heroMainImage"
+              src="https://i.ibb.co/Q7g4y69C/1794404692173.jpg" 
+              alt="LAVORA™ – Self-Cleaning Hair Brush" 
+              loading="lazy"
+              class="w-full h-full object-contain p-2 transition-all duration-300"
+              onerror="this.src='https://placehold.co/600x600/f1f5f9/0f172a?text=LAVORA+Hair+Brush'"
+            />
+
+            <!-- Prev / Next Gallery Arrows -->
+            <button 
+              onclick="changeHeroImage(-1)" 
+              aria-label="Previous image"
+              class="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md flex items-center justify-center active:scale-90 transition"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button 
+              onclick="changeHeroImage(1)" 
+              aria-label="Next image"
+              class="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md flex items-center justify-center active:scale-90 transition"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            <!-- Photo Counter Pill -->
+            <div id="heroImageCounter" class="absolute bottom-3 right-3 bg-slate-900/75 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+              1 / 4
+            </div>
+          </div>
+
+          <!-- 4 Thumbnails Strip -->
+          <div id="heroThumbnails" class="grid grid-cols-4 gap-2.5">
+            <!-- Dynamically rendered via JS -->
+          </div>
+          <p class="text-center text-xs text-slate-400">Tap any photo above to view different angles & features</p>
+        </div>
+
+        <!-- RIGHT COLUMN: Details, Bundle Selector & Instant Actions -->
+        <div class="lg:col-span-6 space-y-5">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-indigo-600 uppercase tracking-wider mb-1">
+              <span>Beauty & Personal Care</span>
+              <span>•</span>
+              <span class="text-amber-500 flex items-center gap-0.5">★★★★★ <span class="text-slate-500 font-medium">(4.9/5 Customer Rating)</span></span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+              LAVORA™ – Self-Cleaning Hair Brush
+            </h2>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+              1-Click Push Button Hair Release | Gentle Scalp Massage Bristles | Anti-Static & Effortless Detangling for All Hair Types.
+            </p>
+          </div>
+
+          <!-- Price Highlight Box -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 flex flex-wrap items-baseline justify-between gap-2">
+            <div>
+              <span class="text-xs text-slate-500 font-medium block">Special Deal Price:</span>
+              <div class="flex items-baseline gap-2.5 mt-0.5">
+                <span id="displayedPrice" class="text-3xl font-extrabold text-slate-900">₹299</span>
+                <span id="displayedMrp" class="text-base text-slate-400 line-through font-medium">₹599</span>
+                <span id="displayedSaveBadge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
+                  50% OFF (Save ₹300)
+                </span>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-[11px] font-semibold text-slate-500 uppercase block">Color / Variant</span>
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-800 bg-white px-3 py-1 rounded-lg border border-slate-200 mt-1">
+                <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-slate-300 to-white border border-slate-400"></span>
+                Classic Signature Edition
+              </span>
+            </div>
+          </div>
+
+          <!-- BUNDLE / PACK SELECTOR (Pack of 1 vs Pack of 2 Combo) -->
+          <div class="space-y-2.5">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-700 block">
+              Select Your Offer Pack:
+            </label>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- Option 1: Single Pack -->
+              <div 
+                id="bundleOption1"
+                onclick="selectBundle(1)"
+                class="cursor-pointer rounded-2xl p-3.5 border-2 border-indigo-600 bg-indigo-50/40 transition-all relative"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2.5">
+                    <div id="radioDot1" class="w-5 h-5 rounded-full border-2 border-indigo-600 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 rounded-full bg-indigo-600"></div>
+                    </div>
+                    <div>
+                      <p class="font-bold text-slate-900 text-sm">Pack of 1 Brush</p>
+                      <p class="text-xs text-slate-500">Standard 50% Discount</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-extrabold text-slate-900 text-base">₹299</p>
+                    <p class="text-xs text-slate-400 line-through">₹599</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Option 2: Buy 2 Combo Offer -->
+              <div 
+                id="bundleOption2"
+                onclick="selectBundle(2)"
+                class="cursor-pointer rounded-2xl p-3.5 border-2 border-slate-200 hover:border-indigo-300 bg-white transition-all relative"
+              >
+                <span class="pulse-badge absolute -top-2.5 right-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow">
+                  🔥 MOST POPULAR • EXTRA ₹49 OFF
+                </span>
+                <div class="flex items-start justify-between gap-2 mt-1">
+                  <div class="flex items-center gap-2.5">
+                    <div id="radioDot2" class="w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 rounded-full bg-transparent"></div>
+                    </div>
+                    <div>
+                      <p class="font-bold text-slate-900 text-sm">Buy 2 Combo Pack</p>
+                      <p class="text-xs text-emerald-600 font-semibold">Just ₹274.50 / brush!</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-extrabold text-emerald-700 text-base">₹549</p>
+                    <p class="text-xs text-slate-400 line-through">₹1,198</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons: Add to Cart & Direct Order -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <button 
+              onclick="addSelectedBundleToCart(false)"
+              class="w-full py-3.5 px-5 rounded-2xl border-2 border-slate-900 bg-white hover:bg-slate-50 active:scale-[0.98] text-slate-900 font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-4h.01" />
+              </svg>
+              <span id="addToCartBtnText">Add 1 Pack to Cart — ₹299</span>
+            </button>
+
+            <button 
+              onclick="addSelectedBundleToCart(true)"
+              class="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 active:scale-[0.98] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-indigo-500/20"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>Order Now — Instant Checkout</span>
+            </button>
+          </div>
+
+          <!-- Key Features Grid -->
+          <div class="pt-3 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Why Customers Love LAVORA™</h3>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-700">
+              <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>1-Click Hair Release:</strong> Push back button to clean trapped hair in 1 second.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>3D Air Cushion Massage:</strong> Soothes scalp & boosts circulation gently.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>Wet & Dry Detangling:</strong> Works on straight, curly, thick & wet hair.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>Ergonomic Matte Grip:</strong> Non-slip handle built for daily comfort.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ALL CATALOG SECTION (SCALABLE FOR FUTURE PRODUCTS) ==================== -->
+    <section class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <h2 class="text-xl font-extrabold text-slate-900">Store Catalog</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Click any product image to view all photos & bundle offers</p>
+        </div>
+        <span id="productCountLabel" class="text-xs font-semibold bg-slate-200/80 text-slate-700 px-3 py-1 rounded-full">
+          Showing 1 Product
+        </span>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Dynamically rendered from PRODUCTS array -->
+      </div>
+    </section>
+
+    <!-- ==================== WHY SHOP WITH ORBIT LAMPS ==================== -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-6 shadow-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <div class="p-3 rounded-2xl bg-slate-50">
+          <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold">
+            ⚡
+          </div>
+          <h3 class="font-bold text-sm text-slate-900">Zero-Hassle Online Ordering</h3>
+          <p class="text-xs text-slate-500 mt-1">Select your pack, enter delivery details & place your order in 30 seconds.</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-50">
+          <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+            🎁
+          </div>
+          <h3 class="font-bold text-sm text-slate-900">Exclusive Combo Savings</h3>
+          <p class="text-xs text-slate-500 mt-1">Flat 50% OFF on single units + extra bundle discounts when you buy 2.</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-50">
+          <div class="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+            🛡️
+          </div>
+          <h3 class="font-bold text-sm text-slate-900">Quality Checked Dispatch</h3>
+          <p class="text-xs text-slate-500 mt-1">Every item is inspected before dispatch by the Orbit Lamps team.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 mt-12">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-3">
+        <img 
+          src="https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png" 
+          alt="Orbit Lamps Logo" 
+          class="w-10 h-10 rounded-xl object-cover border border-slate-700"
+          onerror="this.src='https://placehold.co/80x80/0f172a/f59e0b?text=OL'"
+        />
+        <div>
+          <p class="text-white font-bold text-base">Orbit Lamps</p>
+          <p class="text-xs text-slate-400">Trending Finds & Everyday Essentials</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-500">
+        © <span id="currentYear"></span> Orbit Lamps. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== STICKY FLOATING CART BAR (BOTTOM-RIGHT / MOBILE BAR) ==================== -->
+  <div id="stickyCartWrapper" class="fixed bottom-4 inset-x-4 sm:left-auto sm:right-6 z-40 pointer-events-none">
+    <button 
+      onclick="openCartModal()"
+      class="pointer-events-auto w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-5 py-3.5 rounded-2xl shadow-xl shadow-slate-900/30 border border-white/15 flex items-center justify-between sm:justify-center gap-4 active:scale-95 transition-all"
+    >
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-4h.01" />
+          </svg>
+          <span id="floatingCartBadge" class="absolute -top-2 -right-2 bg-rose-600 text-white text-[11px] font-extrabold px-1.5 py-0.2 rounded-full min-w-[20px] text-center">
+            0
+          </span>
+        </div>
+        <div class="text-left">
+          <p class="text-xs text-slate-300 font-medium leading-none">Your Order Bag</p>
+          <p id="floatingCartTotal" class="text-sm font-extrabold text-white mt-0.5">₹0</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1 bg-amber-400 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl">
+        <span>View Cart / Checkout</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toastNotification" class="fixed top-20 right-4 z-50 pointer-events-none transition-all duration-300 toast-exit">
+    <div class="bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-2.5 text-xs sm:text-sm font-semibold">
+      <span class="w-5 h-5 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center font-bold text-xs">✓</span>
+      <span id="toastMessage">Added to cart!</span>
+    </div>
+  </div>
+
+  <!-- ==================== CART & CHECKOUT MODAL ==================== -->
+  <div id="cartModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-slate-950/60 backdrop-blur-sm p-0 sm:p-4">
+    <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-200 overflow-hidden max-h-[92vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <img 
+            src="https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png" 
+            alt="Orbit Lamps" 
+            class="w-7 h-7 rounded-lg object-cover"
+          />
+          <div>
+            <h3 id="modalHeaderTitle" class="font-bold text-base leading-none">Your Shopping Cart</h3>
+            <p class="text-[11px] text-slate-400 mt-0.5">Combo discounts apply automatically</p>
+          </div>
+        </div>
+        <button 
+          onclick="closeCartModal()"
+          aria-label="Close modal"
+          class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Body -->
+      <div class="p-5 overflow-y-auto space-y-5 flex-grow">
+        
+        <!-- STEP 1: CART ITEMS VIEW -->
+        <div id="cartStepView" class="space-y-4">
+          <div id="cartItemsContainer" class="space-y-3">
+            <!-- Cart items injected via JS -->
+          </div>
+
+          <!-- Smart Upsell Banner inside Cart (When Qty == 1 of LAVORA Brush) -->
+          <div id="comboUpsellBanner" class="hidden bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-300 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+            <div class="text-xs text-slate-800">
+              <p class="font-extrabold text-amber-900">💡 Add 1 more brush for just ₹250!</p>
+              <p class="text-slate-600 mt-0.5">Get the <strong>2-Pack Combo for ₹549</strong> instead of ₹598.</p>
+            </div>
+            <button 
+              onclick="updateQuantity('lavora-brush', 1)"
+              class="flex-shrink-0 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs px-3 py-2 rounded-xl shadow-sm transition"
+            >
+              + Add 2nd (₹250)
+            </button>
+          </div>
+
+          <!-- Price Breakdown Box -->
+          <div id="cartSummaryBox" class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2 text-sm">
+            <div class="flex justify-between text-slate-500">
+              <span>Total MRP</span>
+              <span id="summaryMrp" class="line-through">₹0</span>
+            </div>
+            <div class="flex justify-between text-emerald-700 font-semibold">
+              <span>Total Savings (50% + Combo Offer)</span>
+              <span id="summarySavings">- ₹0</span>
+            </div>
+            <div class="border-t border-slate-200 pt-2 flex justify-between items-baseline text-base font-extrabold text-slate-900">
+              <span>Grand Total</span>
+              <span id="summaryGrandTotal" class="text-xl text-indigo-700">₹0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: CHECKOUT FORM VIEW (FORMSPREE) -->
+        <form id="checkoutFormView" class="hidden space-y-4" onsubmit="submitOrderToFormspree(event)">
+          <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-indigo-950">Order Total to Pay:</p>
+              <p id="checkoutPayableAmount" class="text-lg font-extrabold text-indigo-700">₹0</p>
+            </div>
+            <button 
+              type="button"
+              onclick="switchModalStep('cart')"
+              class="text-xs font-bold text-indigo-600 hover:underline"
+            >
+              ← Edit Cart Items
+            </button>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Full Name *</label>
+            <input 
+              type="text" 
+              name="Customer_Name" 
+              id="custName"
+              required 
+              placeholder="Enter your full name"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 outline-none text-sm"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Phone Number (Active Mobile) *</label>
+            <input 
+              type="tel" 
+              name="Customer_Phone" 
+              id="custPhone"
+              required 
+              pattern="[0-9+\-\s]{10,15}"
+              placeholder="e.g., 9876543210"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 outline-none text-sm"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Complete Delivery Address & PIN Code *</label>
+            <textarea 
+              name="Delivery_Address" 
+              id="custAddress"
+              rows="3" 
+              required 
+              placeholder="House/Flat No., Street, Landmark, City, State & 6-digit PIN Code"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 outline-none text-sm"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Special Instructions (Optional)</label>
+            <input 
+              type="text" 
+              name="Special_Instructions" 
+              id="custNotes"
+              placeholder="Any delivery timing or note..."
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 outline-none text-sm"
+            />
+          </div>
+
+          <!-- Hidden Fields for Complete Readable Order Summary in Formspree Email -->
+          <input type="hidden" name="_subject" id="hiddenEmailSubject" value="New Order Received — Orbit Lamps" />
+          <input type="hidden" name="Store_Name" value="Orbit Lamps" />
+          <input type="hidden" name="Order_ID" id="hiddenOrderId" value="" />
+          <input type="hidden" name="Grand_Total" id="hiddenGrandTotal" value="" />
+          <textarea name="Complete_Order_Summary" id="hiddenOrderSummary" class="hidden"></textarea>
+
+          <!-- Error Alert Box -->
+          <div id="checkoutErrorBox" class="hidden bg-rose-50 border border-rose-200 text-rose-700 text-xs p-3 rounded-xl font-medium">
+          </div>
+
+          <button 
+            type="submit" 
+            id="submitOrderBtn"
+            class="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-extrabold text-sm shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition"
+          >
+            <span>Confirm & Place Order</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+        </form>
+
+        <!-- STEP 3: ORDER CONFIRMATION VIEW -->
+        <div id="orderSuccessView" class="hidden text-center py-4 space-y-4">
+          <div class="w-16 h-16 mx-auto rounded-2xl overflow-hidden border-2 border-emerald-500 shadow-md">
+            <img 
+              src="https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png" 
+              alt="Orbit Lamps" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1 rounded-full">
+            ✓ ORDER PLACED SUCCESSFULLY
+          </div>
+          <h4 class="text-xl font-extrabold text-slate-900">Thank You for Your Order!</h4>
+          <p class="text-xs sm:text-sm text-slate-600 max-w-sm mx-auto leading-relaxed">
+            <strong>Orbit Lamps</strong> has received your order details. Our team will contact you shortly on your phone number to confirm dispatch and delivery.
+          </p>
+          <div id="confirmationReceiptBox" class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left text-xs space-y-1.5 text-slate-700">
+            <!-- Populated dynamically -->
+          </div>
+          <button 
+            onclick="closeCartModal()"
+            class="w-full py-3 rounded-2xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition"
+          >
+            Continue Shopping
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer (Visible on Cart Step) -->
+      <div id="cartModalFooter" class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3">
+        <button 
+          onclick="closeCartModal()"
+          class="px-4 py-3 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 transition"
+        >
+          Keep Shopping
+        </button>
+        <button 
+          id="proceedToCheckoutBtn"
+          onclick="switchModalStep('checkout')"
+          class="flex-grow py-3.5 px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2"
+        >
+          <span>Place Order</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== APPLICATION JAVASCRIPT ==================== -->
+  <script>
+    // =========================================================================
+    // 1. STORE CONFIGURATION & PRODUCTS CATALOG (ADD NEW PRODUCTS HERE LATER)
+    // =========================================================================
+    const STORE_CONFIG = {
+      name: "Orbit Lamps",
+      tagline: "Trending Finds & Everyday Essentials",
+      logo: "https://i.ibb.co/ZRv2Fd6X/file-0000000075a0820bb90642d4b916af00.png",
+      formspreeUrl: "https://formspree.io/f/xqpqkewd",
+      storageKey: "orbit_lamps_cart_v1"
+    };
+
+    const PRODUCTS = [
+      {
+        id: "lavora-brush",
+        name: "LAVORA™ – Self-Cleaning Hair Brush",
+        category: "Beauty & Personal Care",
+        mrp: 599,
+        price: 299,
+        comboQty: 2,
+        comboPrice: 549, // Buy 2 for ₹549
+        shortDesc: "1-Click Push Button Hair Release | Gentle Scalp Massage Bristles | Anti-Static & Effortless Detangling.",
+        images: [
+          "https://i.ibb.co/Q7g4y69C/1794404692173.jpg",
+          "https://i.ibb.co/XxLg4rPw/61-Oy6-RGq-D6-L.jpg",
+          "https://i.ibb.co/rGNnGV7R/61h-DGt94-WIL.jpg",
+          "https://i.ibb.co/ZpnY8mWh/file-00000000a0248211ba127b400b4f352b.png"
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. APPLICATION STATE
+    // =========================================================================
+    let cart = {}; // { 'lavora-brush': quantity }
+    let activeCategory = "All Products";
+    let searchQuery = "";
+    let currentHeroImageIndex = 0;
+    let selectedBundleQty = 1; // 1 = ₹299, 2 = ₹549
+
+    // =========================================================================
+    // 3. INITIALIZATION
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+      loadCartFromStorage();
+      renderCategories();
+      renderHeroGallery();
+      selectBundle(1);
+      renderProductGrid();
+      updateCartUI();
+    });
+
+    function loadCartFromStorage() {
+      try {
+        const saved = localStorage.getItem(STORE_CONFIG.storageKey);
+        if (saved) {
+          cart = JSON.parse(saved) || {};
+        }
+      } catch (e) {
+        cart = {};
+      }
+    }
+
+    function saveCartToStorage() {
+      try {
+        localStorage.setItem(STORE_CONFIG.storageKey, JSON.stringify(cart));
+      } catch (e) {
+        console.error("Could not save cart to localStorage", e);
+      }
+    }
+
+    // =========================================================================
+    // 4. SMART PRICING ENGINE (HANDLES 50% OFF + BUY 2 FOR ₹549 COMBO)
+    // =========================================================================
+    function calculateItemPricing(product, qty) {
+      const totalMrp = product.mrp * qty;
+      let subtotal = 0;
+      let comboBundlesApplied = 0;
+
+      if (product.comboQty && product.comboPrice && qty >= product.comboQty) {
+        comboBundlesApplied = Math.floor(qty / product.comboQty);
+        const remainder = qty % product.comboQty;
+        subtotal = (comboBundlesApplied * product.comboPrice) + (remainder * product.price);
+      } else {
+        subtotal = qty * product.price;
+      }
+
+      const savings = totalMrp - subtotal;
+      return {
+        qty,
+        totalMrp,
+        subtotal,
+        savings,
+        comboBundlesApplied
+      };
+    }
+
+    function calculateCartTotals() {
+      let totalItems = 0;
+      let totalMrp = 0;
+      let grandTotal = 0;
+      let totalSavings = 0;
+      const lineItems = [];
+
+      for (const [productId, qty] of Object.entries(cart)) {
+        if (qty <= 0) continue;
+        const product = PRODUCTS.find(p => p.id === productId);
+        if (!product) continue;
+
+        const calc = calculateItemPricing(product, qty);
+        totalItems += qty;
+        totalMrp += calc.totalMrp;
+        grandTotal += calc.subtotal;
+        totalSavings += calc.savings;
+
+        lineItems.push({
+          product,
+          ...calc
+        });
+      }
+
+      return { totalItems, totalMrp, grandTotal, totalSavings, lineItems };
+    }
+
+    // =========================================================================
+    // 5. HERO 4-IMAGE INTERACTIVE GALLERY & BUNDLE SELECTOR
+    // =========================================================================
+    function renderHeroGallery() {
+      const featured = PRODUCTS[0];
+      const mainImg = document.getElementById("heroMainImage");
+      const counter = document.getElementById("heroImageCounter");
+      const thumbContainer = document.getElementById("heroThumbnails");
+
+      mainImg.src = featured.images[currentHeroImageIndex];
+      counter.textContent = `${currentHeroImageIndex + 1} / ${featured.images.length}`;
+
+      thumbContainer.innerHTML = featured.images.map((imgUrl, idx) => {
+        const isActive = idx === currentHeroImageIndex;
+        return `
+          <button 
+            onclick="setHeroImage(${idx})"
+            class="aspect-square rounded-xl overflow-hidden border-2 transition-all bg-white p-1 ${
+              isActive ? 'border-indigo-600 ring-2 ring-indigo-500/20 scale-[1.02]' : 'border-slate-200 opacity-75 hover:opacity-100'
+            }"
+          >
+            <img 
+              src="${imgUrl}" 
+              alt="${featured.name} angle ${idx + 1}" 
+              loading="lazy"
+              class="w-full h-full object-contain"
+              onerror="this.src='https://placehold.co/150x150/f1f5f9/0f172a?text=Photo+${idx + 1}'"
+            />
+          </button>
+        `;
+      }).join("");
+    }
+
+    function setHeroImage(index) {
+      currentHeroImageIndex = index;
+      renderHeroGallery();
+    }
+
+    function changeHeroImage(direction) {
+      const total = PRODUCTS[0].images.length;
+      currentHeroImageIndex = (currentHeroImageIndex + direction + total) % total;
+      renderHeroGallery();
+    }
+
+    function selectBundle(qty) {
+      selectedBundleQty = qty;
+      const opt1 = document.getElementById("bundleOption1");
+      const opt2 = document.getElementById("bundleOption2");
+      const dot1 = document.getElementById("radioDot1");
+      const dot2 = document.getElementById("radioDot2");
+
+      const dispPrice = document.getElementById("displayedPrice");
+      const dispMrp = document.getElementById("displayedMrp");
+      const dispBadge = document.getElementById("displayedSaveBadge");
+      const addBtnText = document.getElementById("addToCartBtnText");
+
+      if (qty === 1) {
+        opt1.className = "cursor-pointer rounded-2xl p-3.5 border-2 border-indigo-600 bg-indigo-50/40 transition-all relative";
+        opt2.className = "cursor-pointer rounded-2xl p-3.5 border-2 border-slate-200 hover:border-indigo-300 bg-white transition-all relative";
+        dot1.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-indigo-600"></div>';
+        dot1.className = "w-5 h-5 rounded-full border-2 border-indigo-600 flex items-center justify-center";
+        dot2.innerHTML = '';
+        dot2.className = "w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center";
+
+        dispPrice.textContent = "₹299";
+        dispMrp.textContent = "₹599";
+        dispBadge.textContent = "50% OFF (Save ₹300)";
+        addBtnText.textContent = "Add 1 Pack to Cart — ₹299";
+      } else {
+        opt2.className = "cursor-pointer rounded-2xl p-3.5 border-2 border-indigo-600 bg-indigo-50/40 transition-all relative";
+        opt1.className = "cursor-pointer rounded-2xl p-3.5 border-2 border-slate-200 hover:border-indigo-300 bg-white transition-all relative";
+        dot2.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-indigo-600"></div>';
+        dot2.className = "w-5 h-5 rounded-full border-2 border-indigo-600 flex items-center justify-center";
+        dot1.innerHTML = '';
+        dot1.className = "w-5 h-5 rounded-full border-2 border-slate-300 flex items-center justify-center";
+
+        dispPrice.textContent = "₹549";
+        dispMrp.textContent = "₹1,198";
+        dispBadge.textContent = "COMBO APPLIED (Save ₹649)";
+        addBtnText.textContent = "Add 2-Pack Combo — ₹549";
+      }
+    }
+
+    function addSelectedBundleToCart(openCheckoutImmediately) {
+      updateQuantity("lavora-brush", selectedBundleQty);
+      if (openCheckoutImmediately) {
+        openCartModal();
+        switchModalStep("checkout");
+      }
+    }
+
+    // =========================================================================
+    // 6. CATEGORY FILTER, SEARCH & PRODUCT CATALOG GRID
+    // =========================================================================
+    function renderCategories() {
+      const categories = ["All Products", ...new Set(PRODUCTS.map(p => p.category)), "Trending Finds"];
+      const container = document.getElementById("categoryContainer");
+
+      container.innerHTML = categories.map(cat => {
+        const isActive = cat === activeCategory;
+        return `
+          <button 
+            onclick="setCategory('${cat}')"
+            class="px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+              isActive 
+                ? 'bg-slate-900 text-white shadow-sm' 
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }"
+          >
+            ${cat}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function setCategory(category) {
+      activeCategory = category;
+      renderCategories();
+      renderProductGrid();
+    }
+
+    function handleSearch(query) {
+      searchQuery = query.trim().toLowerCase();
+      renderProductGrid();
+    }
+
+    function resetFilter() {
+      activeCategory = "All Products";
+      searchQuery = "";
+      document.getElementById("desktopSearchInput").value = "";
+      document.getElementById("mobileSearchInput").value = "";
+      renderCategories();
+      renderProductGrid();
+    }
+
+    function renderProductGrid() {
+      const grid = document.getElementById("productGrid");
+      const countLabel = document.getElementById("productCountLabel");
+
+      const filtered = PRODUCTS.filter(p => {
+        const matchesCategory = 
+          activeCategory === "All Products" || 
+          activeCategory === "Trending Finds" || 
+          p.category === activeCategory;
+        const matchesSearch = 
+          !searchQuery || 
+          p.name.toLowerCase().includes(searchQuery) || 
+          p.shortDesc.toLowerCase().includes(searchQuery) ||
+          p.category.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+      });
+
+      countLabel.textContent = `Showing ${filtered.length} Product${filtered.length === 1 ? '' : 's'}`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl p-8 text-center border border-slate-200">
+            <p class="text-base font-bold text-slate-700">No matching products found</p>
+            <p class="text-xs text-slate-500 mt-1">Try resetting your search filter.</p>
+            <button onclick="resetFilter()" class="mt-3 px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-xl">
+              Show All Products
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(product => {
+        const inCartQty = cart[product.id] || 0;
+        return `
+          <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+            <div>
+              <!-- Card Image Header -->
+              <div class="relative aspect-square bg-slate-50 border-b border-slate-100 overflow-hidden group">
+                <span class="absolute top-3 left-3 z-10 bg-rose-600 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full">
+                  50% OFF
+                </span>
+                <span class="absolute top-3 right-3 z-10 bg-amber-400 text-slate-950 text-[11px] font-extrabold px-2.5 py-1 rounded-full shadow-sm">
+                  Buy 2 @ ₹549
+                </span>
+                <img 
+                  src="${product.images[0]}" 
+                  alt="${product.name}" 
+                  loading="lazy"
+                  onclick="document.getElementById('featuredShowcase').scrollIntoView({behavior: 'smooth'})"
+                  class="w-full h-full object-contain p-4 cursor-pointer group-hover:scale-105 transition-transform duration-300"
+                  onerror="this.src='https://placehold.co/400x400/f1f5f9/0f172a?text=Product'"
+                />
+                <!-- Mini 4-Photo Indicator -->
+                <div class="absolute bottom-2.5 inset-x-3 flex justify-center gap-1.5">
+                  ${product.images.map((img, i) => `
+                    <button 
+                      onclick="setHeroImage(${i}); document.getElementById('featuredShowcase').scrollIntoView({behavior: 'smooth'})"
+                      class="w-9 h-9 rounded-lg border border-slate-300 bg-white p-0.5 shadow-sm hover:border-indigo-600 transition"
+                      title="View angle ${i + 1}"
+                    >
+                      <img src="${img}" alt="Thumb ${i+1}" loading="lazy" class="w-full h-full object-contain rounded" />
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="p-4">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600">${product.category}</span>
+                <h3 class="font-extrabold text-slate-900 text-base mt-0.5">${product.name}</h3>
+                <p class="text-xs text-slate-500 mt-1 line-clamp-2">${product.shortDesc}</p>
+
+                <div class="mt-3 flex items-baseline justify-between">
+                  <div class="flex items-baseline gap-2">
+                    <span class="text-xl font-extrabold text-slate-900">₹${product.price}</span>
+                    <span class="text-xs text-slate-400 line-through">₹${product.mrp}</span>
+                  </div>
+                  <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                    2 for ₹${product.comboPrice}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Footer CTA -->
+            <div class="p-4 pt-0 space-y-2">
+              ${
+                inCartQty > 0
+                  ? `
+                  <div class="flex items-center justify-between bg-slate-900 text-white rounded-xl p-1.5">
+                    <button 
+                      onclick="updateQuantity('${product.id}', -1)"
+                      class="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 font-extrabold text-lg flex items-center justify-center active:scale-90 transition"
+                    >−</button>
+                    <div class="text-center">
+                      <span class="text-xs font-extrabold block">${inCartQty} in Cart</span>
+                      <span class="text-[10px] text-amber-300 block">${inCartQty >= 2 ? '🔥 Combo Applied!' : 'Add 1 more for ₹549 deal'}</span>
+                    </div>
+                    <button 
+                      onclick="updateQuantity('${product.id}', 1)"
+                      class="w-9 h-9 rounded-lg bg-amber-400 text-slate-950 font-extrabold text-lg flex items-center justify-center active:scale-90 transition"
+                    >+</button>
+                  </div>
+                  `
+                  : `
+                  <div class="grid grid-cols-2 gap-2">
+                    <button 
+                      onclick="updateQuantity('${product.id}', 1)"
+                      class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition active:scale-95"
+                    >
+                      + Add 1 (₹299)
+                    </button>
+                    <button 
+                      onclick="updateQuantity('${product.id}', 2)"
+                      class="py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition active:scale-95"
+                    >
+                      + Buy 2 (₹549)
+                    </button>
+                  </div>
+                  `
+              }
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // =========================================================================
+    // 7. CART OPERATIONS & MODAL UPDATES
+    // =========================================================================
+    function updateQuantity(productId, change) {
+      const current = cart[productId] || 0;
+      const next = current + change;
+
+      if (next <= 0) {
+        delete cart[productId];
+        showToast("Removed item from cart");
+      } else {
+        cart[productId] = next;
+        if (change > 0) {
+          showToast(next >= 2 ? `🎉 Combo Deal Active! (${next} units in cart)` : "Added to cart!");
+        }
+      }
+
+      saveCartToStorage();
+      renderProductGrid();
+      updateCartUI();
+    }
+
+    function removeItem(productId) {
+      delete cart[productId];
+      saveCartToStorage();
+      renderProductGrid();
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const { totalItems, totalMrp, grandTotal, totalSavings, lineItems } = calculateCartTotals();
+
+      // Update Header & Floating Badges
+      document.getElementById("headerCartCount").textContent = totalItems;
+      document.getElementById("floatingCartBadge").textContent = totalItems;
+      document.getElementById("floatingCartTotal").textContent = `₹${grandTotal}`;
+
+      // Render Cart Modal Items
+      const container = document.getElementById("cartItemsContainer");
+      const summaryBox = document.getElementById("cartSummaryBox");
+      const upsellBanner = document.getElementById("comboUpsellBanner");
+      const proceedBtn = document.getElementById("proceedToCheckoutBtn");
+
+      if (lineItems.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 space-y-3">
+            <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-2xl">
+              🛒
+            </div>
+            <p class="font-bold text-slate-800 text-base">Your cart is empty</p>
+            <p class="text-xs text-slate-500 max-w-xs mx-auto">Add the LAVORA™ Self-Cleaning Hair Brush (Single ₹299 or Combo of 2 for ₹549) to get started!</p>
+          </div>
+        `;
+        summaryBox.classList.add("hidden");
+        upsellBanner.classList.add("hidden");
+        proceedBtn.disabled = true;
+        proceedBtn.classList.add("opacity-50", "cursor-not-allowed");
+        return;
+      }
+
+      summaryBox.classList.remove("hidden");
+      proceedBtn.disabled = false;
+      proceedBtn.classList.remove("opacity-50", "cursor-not-allowed");
+
+      // Show Upsell if LAVORA brush qty is exactly 1
+      if (cart["lavora-brush"] === 1) {
+        upsellBanner.classList.remove("hidden");
+      } else {
+        upsellBanner.classList.add("hidden");
+      }
+
+      container.innerHTML = lineItems.map(item => `
+        <div class="p-3.5 rounded-2xl border border-slate-200 bg-white flex items-center gap-3">
+          <img 
+            src="${item.product.images[0]}" 
+            alt="${item.product.name}" 
+            class="w-16 h-16 rounded-xl object-contain bg-slate-50 border border-slate-100 p-1 flex-shrink-0"
+          />
+          <div class="flex-grow min-w-0">
+            <h4 class="font-bold text-slate-900 text-xs sm:text-sm truncate">${item.product.name}</h4>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="text-sm font-extrabold text-slate-900">₹${item.subtotal}</span>
+              <span class="text-xs text-slate-400 line-through">₹${item.totalMrp}</span>
+            </div>
+            ${
+              item.comboBundlesApplied > 0
+                ? `<span class="inline-block mt-1 bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                    🎉 Combo Offer Applied (${item.comboBundlesApplied * 2} for ₹${item.comboBundlesApplied * 549})
+                  </span>`
+                : `<span class="inline-block mt-1 text-[11px] text-slate-500">₹${item.product.price} per unit</span>`
+            }
+          </div>
+
+          <!-- Plus/Minus & Remove Controls -->
+          <div class="flex flex-col items-end gap-1.5">
+            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+              <button 
+                onclick="updateQuantity('${item.product.id}', -1)"
+                class="w-7 h-7 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-200 transition"
+              >−</button>
+              <span class="px-2.5 text-xs font-extrabold text-slate-900">${item.qty}</span>
+              <button 
+                onclick="updateQuantity('${item.product.id}', 1)"
+                class="w-7 h-7 flex items-center justify-center font-bold text-slate-700 hover:bg-slate-200 transition"
+              >+</button>
+            </div>
+            <button 
+              onclick="removeItem('${item.product.id}')"
+              class="text-[11px] text-rose-600 hover:underline font-semibold"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("summaryMrp").textContent = `₹${totalMrp}`;
+      document.getElementById("summarySavings").textContent = `- ₹${totalSavings}`;
+      document.getElementById("summaryGrandTotal").textContent = `₹${grandTotal}`;
+      document.getElementById("checkoutPayableAmount").textContent = `₹${grandTotal}`;
+    }
+
+    function openCartModal() {
+      const modal = document.getElementById("cartModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      switchModalStep("cart");
+      updateCartUI();
+    }
+
+    function closeCartModal() {
+      const modal = document.getElementById("cartModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function switchModalStep(step) {
+      const cartView = document.getElementById("cartStepView");
+      const checkoutView = document.getElementById("checkoutFormView");
+      const successView = document.getElementById("orderSuccessView");
+      const footer = document.getElementById("cartModalFooter");
+      const title = document.getElementById("modalHeaderTitle");
+
+      cartView.classList.add("hidden");
+      checkoutView.classList.add("hidden");
+      successView.classList.add("hidden");
+      footer.classList.add("hidden");
+
+      if (step === "cart") {
+        cartView.classList.remove("hidden");
+        footer.classList.remove("hidden");
+        title.textContent = "Your Shopping Cart";
+      } else if (step === "checkout") {
+        checkoutView.classList.remove("hidden");
+        title.textContent = "Delivery & Order Details";
+      } else if (step === "success") {
+        successView.classList.remove("hidden");
+        title.textContent = "Order Confirmed!";
+      }
+    }
+
+    // =========================================================================
+    // 8. FORMSPREE ORDER SUBMISSION (COMPLETE READABLE SUMMARY)
+    // =========================================================================
+    async function submitOrderToFormspree(event) {
+      event.preventDefault();
+
+      const { totalItems, totalMrp, grandTotal, totalSavings, lineItems } = calculateCartTotals();
+      if (totalItems === 0) return;
+
+      const submitBtn = document.getElementById("submitOrderBtn");
+      const errorBox = document.getElementById("checkoutErrorBox");
+      errorBox.classList.add("hidden");
+
+      const custName = document.getElementById("custName").value.trim();
+      const custPhone = document.getElementById("custPhone").value.trim();
+      const custAddress = document.getElementById("custAddress").value.trim();
+      const custNotes = document.getElementById("custNotes").value.trim() || "None";
+
+      const orderId = "OL-" + Math.floor(100000 + Math.random() * 900000);
+
+      // Build clean, human-readable order summary for shop owner's email inbox
+      const itemLines = lineItems.map((item, idx) => {
+        const comboNote = item.comboBundlesApplied > 0 
+          ? ` [Combo Offer Applied: ${item.comboBundlesApplied * 2} units @ ₹549/pair]` 
+          : "";
+        return `${idx + 1}. ${item.product.name} — Qty: ${item.qty} — Subtotal: ₹${item.subtotal}${comboNote}`;
+      }).join("\n");
+
+      const readableSummary = [
+        `=========================================`,
+        `NEW ORDER — ORBIT LAMPS (${orderId})`,
+        `=========================================`,
+        `Customer Name: ${custName}`,
+        `Phone Number: ${custPhone}`,
+        `Delivery Address: ${custAddress}`,
+        `Special Instructions: ${custNotes}`,
+        `-----------------------------------------`,
+        `ORDERED ITEMS:`,
+        itemLines,
+        `-----------------------------------------`,
+        `Total MRP: ₹${totalMrp}`,
+        `Total Discount / Savings: -₹${totalSavings}`,
+        `FINAL PAYABLE AMOUNT: ₹${grandTotal}`,
+        `=========================================`
+      ].join("\n");
+
+      document.getElementById("hiddenEmailSubject").value = `New Order ${orderId} (₹${grandTotal}) from ${custName} — Orbit Lamps`;
+      document.getElementById("hiddenOrderId").value = orderId;
+      document.getElementById("hiddenGrandTotal").value = `₹${grandTotal}`;
+      document.getElementById("hiddenOrderSummary").value = readableSummary;
+
+      const form = document.getElementById("checkoutFormView");
+      const formData = new FormData(form);
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Sending Your Order...</span>`;
+
+      try {
+        const response = await fetch(STORE_CONFIG.formspreeUrl, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: formData
+        });
+
+        if (response.ok) {
+          // Populate confirmation receipt
+          document.getElementById("confirmationReceiptBox").innerHTML = `
+            <p><strong>Order ID:</strong> <span class="text-indigo-700 font-bold">${orderId}</span></p>
+            <p><strong>Customer:</strong> ${custName} (${custPhone})</p>
+            <p><strong>Items Ordered:</strong> ${lineItems.map(i => `${i.product.name} (x${i.qty})`).join(", ")}</p>
+            <p><strong>Grand Total:</strong> <span class="text-emerald-700 font-extrabold text-sm">₹${grandTotal}</span></p>
+          `;
+
+          // Clear cart & storage
+          cart = {};
+          saveCartToStorage();
+          form.reset();
+          renderProductGrid();
+          updateCartUI();
+          switchModalStep("success");
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || "Could not submit order right now. Please check your connection and try again.");
+        }
+      } catch (err) {
+        errorBox.textContent = err.message;
+        errorBox.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          <span>Confirm & Place Order</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        `;
+      }
+    }
+
+    // =========================================================================
+    // 9. TOAST HELPER
+    // =========================================================================
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById("toastNotification");
+      document.getElementById("toastMessage").textContent = message;
+      toast.classList.remove("toast-exit");
+      toast.classList.add("toast-enter");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("toast-enter");
+        toast.classList.add("toast-exit");
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
